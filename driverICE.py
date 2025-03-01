@@ -70,7 +70,7 @@ def find_best_partition(recordList, strategy, pivots):
 #  Main driver function
 #  Identifies the optimal partition values and prints out these and the impurity values for each
 def main():
-    records = read_in("test_data.csv")
+    records = read_in("sufficiently_noisy_data-1.csv")
     #records = read_in("training_data_more_noise.csv")
     giniCalcObj = CollectiveImpurityGini()
     entropyCalcObj = CollectiveImpurityEntropy()
@@ -84,6 +84,7 @@ def main():
     
     acc = sum([1 for r in rec if r.actual_label == r.predicted_label])/len(rec)
     print(acc)
+
 
 
 if __name__ == "__main__":

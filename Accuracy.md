@@ -1,5 +1,5 @@
 
 # Record Accuracy
-Found an accuracy of 1.0 after running driver.
+Found an accuracy of .86 after running driver.
 
-I find this to be mildly concerning but it is over 90%.
+I am aware that this is caused by how I am removing pivots from the dictionary.  The tree is only able to create 6 total branches which I believe is related to how the pivots is being updated but I was unable to find what should be corrected.

@@ -10,6 +10,7 @@ class TreeNode:
         self.children = []
         #  Labels apply to treenodes specifically, which risk level they have more of
         self.label_to_apply = None
+        #  Used to tell what the next split will
         self.partitionLogic = None
         self.matchingRecords = None
         self.lowCount = 0
@@ -61,12 +62,12 @@ class TreeNode:
         for key, value in self.pivots.items():
             newPartition = self.make_partition(self.records, self.pivots[key])
             tempEntropy = strategy.calculate(newPartition)
-            #  print(key + str(tempEntropy))
+            # print(key + str(tempEntropy))
             if tempEntropy < lowestEntropy:
                 lowestEntropy = tempEntropy
                 bestPivot = [key, value]
-                #  print("BEST PIVOT HERE")
-                print(bestPivot)
+                #print("BEST PIVOT HERE")
+                #print(bestPivot)
                 self.partitionLogic = value
         
         return bestPivot
@@ -87,9 +88,14 @@ class TreeNode:
             if lamSplit is None:
                 return
             else:
-                partitionedLists = self.make_partition(self.records, self.pivots.pop(lamSplit[0]))
-                leftNode = TreeNode(partitionedLists[0], self.pivots)
-                rightNode = TreeNode(partitionedLists[1], self.pivots)
+                #print("Split on: " + lamSplit[0])
+                leftPivots = self.pivots.copy()
+                rightPivots = self.pivots.copy()
+                partitionedLists = self.make_partition(self.records, self.pivots[lamSplit[0]])
+                del leftPivots[lamSplit[0]]
+                del rightPivots[lamSplit[0]]
+                leftNode = TreeNode(partitionedLists[0], leftPivots)
+                rightNode = TreeNode(partitionedLists[1], rightPivots)
                 self.add_child(leftNode)
                 self.add_child(rightNode)
 
